@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+next-env.d.ts
+
+# Local environment (contains the deployment the dev is pointing at)
+.env.local
+.env*.local
+
+# Generated from Foundry artifacts by scripts/export-abis.mjs.
+# Committing these would let a stale ABI drift from the contracts.
+src/lib/abis/
+
+# Misc
+*.tsbuildinfo
+.DS_Store

@@ -13,3 +13,7 @@ states/
 # Optional
 .env
 .env.local
+# Foundry
+out/
+cache/
+broadcast/

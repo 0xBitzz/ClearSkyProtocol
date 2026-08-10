@@ -1,0 +1,29 @@
+{
+  "name": "clearsky-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Off-chain monitoring agent. Polls flight data and posts status to FlightRegistry via FlightAgent.",
+  "scripts": {
+    "monitor": "tsx src/monitor.ts",
+    "monitor:once": "tsx src/monitor.ts --once",
+    "sweep": "tsx src/monitor.ts --sweep-only",
+    "register-identity": "tsx src/register-identity.ts",
+    "mockpass": "tsx src/mockpass.ts",
+    "legcheck": "tsx src/legcheck.ts",
+    "pickleg": "tsx src/pickleg.ts",
+    "tracepay": "tsx src/tracepay.ts",
+    "typecheck": "tsc --noEmit"
+
+
+  },
+  "dependencies": {
+    "dotenv": "16.4.7",
+    "viem": "2.21.55"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "tsx": "4.19.2",
+    "typescript": "5.7.2"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "ClearSky Flight Oracle",
+  "description": "Monitors scheduled commercial flights and reports departure facts on-chain for the ClearSky parametric flight-delay insurance protocol. Settlement moves on observed actual departure time only; every report carries a keccak256 commitment to the raw provider payload it was derived from, so any payout can be audited against its source.",
+  "agent_type": "oracle",
+  "version": "1.0.0",
+  "capabilities": [
+    "flight_status_monitoring",
+    "departure_delay_detection",
+    "evidence_committed_reporting",
+    "policy_expiry_sweeping"
+  ],
+  "protocol": {
+    "name": "ClearSky",
+    "chain": "Arc Testnet",
+    "chainId": 5042002,
+    "contracts": {
+      "flightAgent": "0x5000D5Ee64Ba44F76047Fc60e0ef5Df1d3203CAC",
+
+      "flightRegistry": "0x0C6572C440cA1d1eba938640326358FAE08992Ae",
+      "insurance": "0x5F10f4694055d64DBe8B4C5E2E03BE7A0986E8eb"
+    }
+  },
+  "reporting_policy": {
+    "settles_on": "actual_out",
+    "ignores": "estimated_out",
+    "rationale": "An estimate that is revised upward and then walked back would let a transient delay drain the vault. Only a recorded actual departure can trigger a payout.",
+    "evidence": "keccak256 of the raw provider response, submitted as dataHash with every status report",
+    "immutability": "A recorded departure is terminal. The agent never reports a flight back to a not-departed state, so a stale or rolled-forward provider record cannot void a claim already earned."
+  },
+  "data_sources": [
+    {
+      "name": "FlightAware AeroAPI",
+      "url": "https://aeroapi.flightaware.com/aeroapi",
+      "fields": ["actual_out", "estimated_out", "scheduled_out", "cancelled"]
+    }
+  ],
+  "source": "https://github.com/0xBitzz/ClearSkyProtocol"
+}

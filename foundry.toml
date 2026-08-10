@@ -2,5 +2,32 @@
 src = "src"
 out = "out"
 libs = ["lib"]
+solc = "0.8.28"
+optimizer = true
+optimizer_runs = 200
+
+# Pinned, not defaulted. Foundry's default is paris, which predates PUSH0, so
+# any script that touches a contract compiled for Shanghai or later dies with
+# `EvmError: NotActivated` during simulation even though the call succeeds
+# on-chain. Arc's ERC-8004 IdentityRegistry proxy is exactly that case.
+#
+# Cancun matches what solc 0.8.28 targets by default, so the bytecode we
+# simulate is the bytecode we deploy.
+evm_version = "cancun"
+
+remappings = [
+    "@openzeppelin/=lib/openzeppelin-contracts/",
+    "forge-std/=lib/forge-std/src/",
+]
+
+# Named RPC endpoints, so deploys read `--rpc-url arc_testnet` instead of
+# threading a raw URL through every command.
+[rpc_endpoints]
+arc_testnet = "${ARC_TESTNET_RPC_URL}"
+
+# Arc Testnet runs Blockscout, not Etherscan.
+[etherscan]
+arc_testnet = { key = "", chain = 5042002, url = "https://testnet.arcscan.app/api/" }
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+
