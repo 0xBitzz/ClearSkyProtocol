@@ -12,7 +12,7 @@ next-env.d.ts
 
 # Generated from Foundry artifacts by scripts/export-abis.mjs.
 # Committing these would let a stale ABI drift from the contracts.
-src/lib/abis/
+# src/lib/abis/
 
 # Misc
 *.tsbuildinfo
